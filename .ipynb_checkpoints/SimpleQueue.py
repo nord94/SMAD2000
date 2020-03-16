@@ -26,7 +26,6 @@ class SimpleQueue(object):
     def clear(self):
         self.end = 0
         self.start = 0
-        self.array = self.Size*[0]
         print("ok")
 
     def exit(self):
