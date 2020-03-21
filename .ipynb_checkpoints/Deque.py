@@ -4,44 +4,52 @@ import sys
 class Deque(object):
     def __init__(self):
         self.Size = 100
-        self.array = [0] * 100
+        self.array = [0] * self.Size
         self.Front = 0
         self.end = 0
         self.actualSize = 0
 
     def push_front(self, n):
-        self.Front -= 1
-        self.array[self.Front] = n
-        self.actualSize += 1
-        print("ok")
-
-    def push_back(self, n):
-        if (self.actualSize != 0):
-            self.end += 1
-        self.array[self.end] = n
+        if self.actualSize > 0:
+            if self.Front == 0:
+                self.Front = 99
+            else:
+                self.Front -= 1
+        self.array[self.Front % 100] = n
         self.actualSize += 1
         print("ok")
 
     def pop_front(self):
-        print(self.array[self.Front])
-        self.array[self.Front] = 0
-        if (self.Front != self.end):
+        print(self.array[self.Front % 100])
+        self.array[self.Front % 100] = 0
+        if (self.Front == self.end):
+            self.actualSize = 0
+        elif self.actualSize > 1:
             self.Front += 1
-        self.actualSize -= 1
+            self.actualSize -= 1
+
+    def push_back(self, n):
+        if self.actualSize > 0:
+            self.end += 1
+        self.array[self.end % 100] = n
+        self.actualSize += 1
+        print("ok")
 
     def pop_back(self):
-        print(self.array[self.end])
-        self.array[self.end] = 0
-        if (self.Front != self.end):
-            self.end -= 1
+        print(self.array[self.end % 100])
+        self.array[self.end % 100] = 0
+        if self.actualSize > 1:
+            if self.end == 0:
+                self.end = 99
+            else:
+                self.end -= 1
         self.actualSize -= 1
 
-
     def front(self):
-        print(self.array[self.Front])
+        print(self.array[self.Front%100])
 
     def back(self):
-        print(self.array[self.end])
+        print(self.array[self.end%100])
 
     def size(self):
         print(self.actualSize)
@@ -50,6 +58,7 @@ class Deque(object):
         self.array = [0] * self.Size
         self.Front = 0
         self.end = 0
+        self.actualSize = 0
         print("ok")
 
     def exit(self):
